@@ -1,6 +1,6 @@
 {
   "name": "setup-nativewind",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "One command NativeWind setup for Expo and React Native",
   "main": "src/index.js",
   "type": "module",
