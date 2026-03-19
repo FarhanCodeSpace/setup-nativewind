@@ -33,10 +33,11 @@ async function run() {
   // Step 3: Write config files
   const fileSpinner = ora('Creating config files...').start();
   try {
+    fileSpinner.stop(); // stop before logging individual files
     await writeConfigFiles(projectType);
-    fileSpinner.succeed('Config files created');
+    console.log(chalk.green('✔ Config files created'));
   } catch (err) {
-    fileSpinner.fail('File creation failed: ' + err.message);
+    console.error(chalk.red('✖ File creation failed: ' + err.message));
     process.exit(1);
   }
 
