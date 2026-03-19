@@ -1,6 +1,6 @@
 # setup-nativewind
 
-> One command to set up NativeWind in your Expo or React Native project.
+> CLI tool to instantly set up NativeWind v4 for Expo and React Native projects.
 
 ## Usage
 ```bash
