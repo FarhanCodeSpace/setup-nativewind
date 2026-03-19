@@ -48,6 +48,7 @@ async function run() {
   console.log('  2. Start using Tailwind classes in your components');
   if (projectType.includes('ts')) {
     console.log('  3. nativewind-env.d.ts has been created for TypeScript support ✅');
+    console.log('  4. Start your dev server once to resolve any CSS import warnings');
   }
   console.log('');
 }
