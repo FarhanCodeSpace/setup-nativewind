@@ -21,4 +21,27 @@ export async function writeConfigFiles(projectType) {
     await fs.copy(src, dest);
     console.log(`✅ Created ${file}`);
   }
+
+  // For TS projects update tsconfig.json automatically
+  if (projectType.includes('ts')) {
+    await updateTsConfig(targetDir);
+  }
+}
+
+async function updateTsConfig(targetDir) {
+  const tsconfigPath = path.join(targetDir, 'tsconfig.json');
+
+  if (!fs.existsSync(tsconfigPath)) return;
+
+  const tsconfig = fs.readJsonSync(tsconfigPath);
+
+  if (!tsconfig.include) {
+    tsconfig.include = [];
+  }
+
+  if (!tsconfig.include.includes('nativewind-env.d.ts')) {
+    tsconfig.include.push('nativewind-env.d.ts');
+    fs.writeJsonSync(tsconfigPath, tsconfig, { spaces: 2 });
+    console.log('✅ Updated tsconfig.json');
+  }
 }
