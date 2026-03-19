@@ -9,12 +9,14 @@ async function run() {
 
   // Step 1: Detect project
   let projectType;
-  const detectSpinner = ora('Detecting project type...').start();
   try {
-    projectType = detectProjectType();
-    detectSpinner.succeed(`Detected: ${chalk.green(projectType)}`);
+    projectType = await detectProjectType();
+    const isTS = projectType.includes('ts');
+    console.log(
+      `✔ Detected: ${chalk.green(projectType)} ${isTS ? chalk.blue('(TypeScript)') : chalk.yellow('(JavaScript)')}`
+    );
   } catch (err) {
-    detectSpinner.fail(err.message);
+    console.error(chalk.red('✖ ' + err.message));
     process.exit(1);
   }
 
@@ -42,7 +44,11 @@ async function run() {
   console.log(chalk.bold.green('\n✅ NativeWind setup complete!\n'));
   console.log(chalk.yellow('Next steps:'));
   console.log('  1. Import global.css in your root layout');
-  console.log('  2. Start using Tailwind classes in your components\n');
+  console.log('  2. Start using Tailwind classes in your components');
+  if (projectType.includes('ts')) {
+    console.log('  3. nativewind-env.d.ts has been created for TypeScript support ✅');
+  }
+  console.log('');
 }
 
 run();
